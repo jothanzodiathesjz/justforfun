@@ -4,62 +4,353 @@
     <title>Selamat Anda Menang Undian</title>
     <style>
       body {
-        background-color: black; /* Latar belakang gelap */
-        color: red; /* Teks merah menyeramkan */
-        font-family: "Courier New", Courier, monospace; /* Font ala hacker */
+        background: linear-gradient(45deg, #000000, #1a0000, #330000, #000000);
+        background-size: 400% 400%;
+        animation: gradientShift 3s ease infinite;
+        color: #ff0000;
+        font-family: "Courier New", Courier, monospace;
         text-align: center;
-        padding-top: 100px;
-        overflow: hidden; /* Menghilangkan scrollbar jika ada efek tambahan */
-        animation: flicker 1.5s infinite alternate; /* Efek berkedip */
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
       }
 
-      h1 {
-        font-size: 5em; /* Ukuran teks sangat besar */
-        text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; /* Efek glow merah */
-        animation: shake 0.5s infinite alternate; /* Efek bergetar */
+      /* Animated background gradient */
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
-      h2 {
-        font-size: 2em; /* Ukuran teks sangat besar */
-        text-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue; /* Efek glow merah */
-        animation: shake 0.5s infinite alternate; /* Efek bergetar */
+      /* Matrix rain effect */
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.1;
       }
 
-      /* Animasi berkedip */
-      @keyframes flicker {
+      .matrix-column {
+        position: absolute;
+        top: -100%;
+        color: #00ff00;
+        font-size: 14px;
+        animation: matrixRain linear infinite;
+      }
+
+      @keyframes matrixRain {
+        to { top: 100%; }
+      }
+
+      /* Countdown styles */
+      #countdown {
+        z-index: 10;
+        position: relative;
+      }
+
+      #countdownText {
+        font-size: 15em;
+        text-shadow: 
+          0 0 20px #ff0000,
+          0 0 40px #ff0000,
+          0 0 60px #ff0000,
+          0 0 80px #ff0000,
+          0 0 100px #ff0000;
+        animation: countdownPulse 1s ease-in-out infinite;
+        margin: 0;
+        background: linear-gradient(45deg, #ff0000, #ff6666, #ff0000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      @keyframes countdownPulse {
+        0%, 100% { 
+          transform: scale(1);
+          filter: hue-rotate(0deg);
+        }
+        50% { 
+          transform: scale(1.1);
+          filter: hue-rotate(90deg);
+        }
+      }
+
+      /* Prank text styles */
+      #prankText h1 {
+        font-size: 8em;
+        background: linear-gradient(45deg, #ff0066, #00ff66, #6600ff, #ff6600);
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: rainbowText 0.5s ease-in-out infinite, prankShake 0.2s infinite;
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        margin: 0;
+        z-index: 10;
+        position: relative;
+      }
+
+      @keyframes rainbowText {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      @keyframes prankShake {
+        0%, 100% { transform: translateX(0) rotate(0deg); }
+        25% { transform: translateX(-10px) rotate(-2deg); }
+        75% { transform: translateX(10px) rotate(2deg); }
+      }
+
+      /* Main content styles */
+      #mainContent {
+        z-index: 10;
+        position: relative;
+      }
+
+      #mainContent h1:first-child {
+        font-size: 4em;
+        text-shadow: 
+          0 0 10px #ff0000,
+          0 0 20px #ff0000,
+          0 0 30px #ff0000,
+          0 0 40px #ff0000;
+        animation: hackGlitch 2s infinite;
+        margin-bottom: 30px;
+        background: linear-gradient(90deg, #ff0000, #ff3333, #ff0000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      #mainContent h1:last-child {
+        font-size: 2.5em;
+        color: #00ffff;
+        text-shadow: 
+          0 0 10px #00ffff,
+          0 0 20px #00ffff,
+          0 0 30px #00ffff;
+        animation: hackGlow 3s ease-in-out infinite;
+        margin-top: 20px;
+      }
+
+      @keyframes hackGlitch {
+        0%, 100% { 
+          transform: translateX(0);
+          filter: hue-rotate(0deg);
+        }
+        10% { transform: translateX(-5px); }
+        20% { transform: translateX(5px); }
+        30% { transform: translateX(-3px); }
+        40% { transform: translateX(3px); }
+        50% { 
+          transform: translateX(0);
+          filter: hue-rotate(180deg);
+        }
+        60% { transform: translateX(-2px); }
+        70% { transform: translateX(2px); }
+        80% { transform: translateX(-1px); }
+        90% { transform: translateX(1px); }
+      }
+
+      @keyframes hackGlow {
+        0%, 100% { 
+          text-shadow: 
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 30px #00ffff;
+        }
+        50% { 
+          text-shadow: 
+            0 0 20px #00ffff,
+            0 0 30px #00ffff,
+            0 0 40px #00ffff,
+            0 0 50px #00ffff;
+        }
+      }
+
+      /* Glitch overlay effect */
+      .glitch-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 0, 0, 0.1) 2px,
+          rgba(255, 0, 0, 0.1) 4px
+        );
+        pointer-events: none;
+        z-index: 5;
+        animation: glitchMove 0.1s infinite;
+        opacity: 0;
+      }
+
+      @keyframes glitchMove {
+        0% { transform: translateX(0); opacity: 0; }
+        50% { transform: translateX(2px); opacity: 0.5; }
+        100% { transform: translateX(-2px); opacity: 0; }
+      }
+
+      /* Screen flash effect */
+      .flash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        z-index: 15;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Particles */
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #ff0000;
+        animation: particleFloat 3s linear infinite;
+      }
+
+      @keyframes particleFloat {
         0% {
+          transform: translateY(100vh) rotate(0deg);
           opacity: 1;
         }
-        50% {
-          opacity: 0.8;
-        }
         100% {
-          opacity: 1;
-        }
-      }
-
-      /* Animasi bergetar */
-      @keyframes shake {
-        0% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-5px);
-        }
-        50% {
-          transform: translateX(5px);
-        }
-        75% {
-          transform: translateX(-5px);
-        }
-        100% {
-          transform: translateX(0);
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
         }
       }
     </style>
   </head>
   <body>
-    <h1>ANDA KENA HACK HAHAHAHHA</h1>
-    <h1>ZodiathesJz Hacker Ganteng Idaman </h1>
+    <!-- Matrix background -->
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <!-- Glitch overlay -->
+    <div class="glitch-overlay"></div>
+    
+    <!-- Flash effect -->
+    <div class="flash" id="flashEffect"></div>
+    
+    <!-- Countdown -->
+    <div id="countdown" style="display: block;">
+      <h1 id="countdownText">3</h1>
+    </div>
+    
+    <!-- Prank text -->
+    <div id="prankText" style="display: none;">
+      <h1>PRANKKKK!!!</h1>
+    </div>
+    
+    <!-- Main content -->
+    <div id="mainContent" style="display: none;">
+      <h1>ANDA KENA HACK HAHAHAHHA</h1>
+      <h1>ZodiathesJz HaCker Tipu2 🤣🤣🤣</h1>
+    </div>
+
+    <script>
+      // Matrix rain effect
+      function createMatrix() {
+        const matrixBg = document.getElementById('matrixBg');
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        
+        for (let i = 0; i < 50; i++) {
+          const column = document.createElement('div');
+          column.className = 'matrix-column';
+          column.style.left = Math.random() * 100 + '%';
+          column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+          column.style.animationDelay = Math.random() * 2 + 's';
+          
+          let text = '';
+          for (let j = 0; j < 20; j++) {
+            text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+          }
+          column.innerHTML = text;
+          matrixBg.appendChild(column);
+        }
+      }
+
+      // Create floating particles
+      function createParticles() {
+        for (let i = 0; i < 30; i++) {
+          setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+              particle.remove();
+            }, 3000);
+          }, Math.random() * 10000);
+        }
+      }
+
+      // Flash effect
+      function flashScreen() {
+        const flash = document.getElementById('flashEffect');
+        flash.style.opacity = '0.8';
+        setTimeout(() => {
+          flash.style.opacity = '0';
+        }, 100);
+      }
+
+      // Initialize effects
+      createMatrix();
+      createParticles();
+      
+      // Countdown logic
+      let count = 3;
+      const countdownElement = document.getElementById('countdownText');
+      const countdownDiv = document.getElementById('countdown');
+      const prankDiv = document.getElementById('prankText');
+      const mainDiv = document.getElementById('mainContent');
+
+      const countdownInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownElement.textContent = count;
+          flashScreen();
+        } else if (count === 0) {
+          countdownElement.textContent = '1';
+          flashScreen();
+          setTimeout(() => {
+            countdownDiv.style.display = 'none';
+            prankDiv.style.display = 'block';
+            flashScreen();
+            
+            // Activate glitch overlay during prank
+            document.querySelector('.glitch-overlay').style.opacity = '1';
+            
+            setTimeout(() => {
+              prankDiv.style.display = 'none';
+              mainDiv.style.display = 'block';
+              flashScreen();
+              
+              // Continue particle effects
+              setInterval(createParticles, 5000);
+            }, 2000);
+          }, 1000);
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    </script>
   </body>
 </html>
